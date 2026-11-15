@@ -1,7 +1,7 @@
 import * as React from "react";
 import type {ChatRoomInterface} from "../interface.ts";
 import {createContext, type PropsWithChildren, useContext, useMemo, useState} from "react";
-import {dummyUsers} from "../data.ts";
+import {users} from "../data.ts";
 
 interface ChatRoomContextInterface {
   currentRoom: ChatRoomInterface|null
@@ -13,7 +13,7 @@ export const CurrentRoomContext = createContext<ChatRoomContextInterface|undefin
 export const CurrentRoomContextProvider = ({children}: PropsWithChildren) => {
   const [currentRoom, setCurrentRoom] = useState<ChatRoomInterface | null>({
     handle: "room123",
-    members: dummyUsers
+    members: users
   })
 
   return (
@@ -32,7 +32,6 @@ export function useCurrentRoom() {
   if (!context) {
     throw new Error("useRoom must be used within a RoomContextProvider");
   } else if (!context?.currentRoom) {
-    // @todo properly redirect to "create room" instead of just throwing an error
     throw new Error("No room found");
   }
 

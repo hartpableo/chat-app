@@ -1,7 +1,6 @@
 import {createContext, type PropsWithChildren, useContext, useMemo, useState} from "react";
 import type {UserInterface} from "../interface.ts";
 import * as React from "react";
-import {dummyUsers} from "../data.ts";
 
 interface CurrentUserContextInterface {
   currentUser: UserInterface | null
@@ -11,8 +10,7 @@ interface CurrentUserContextInterface {
 export const CurrentUserContext = createContext<CurrentUserContextInterface | undefined>(undefined);
 
 export const CurrentUserContextProvider = ({children}: PropsWithChildren) => {
-  // @todo: implement auth
-  const [currentUser, setCurrentUser] = useState<UserInterface | null>(dummyUsers[1])
+  const [currentUser, setCurrentUser] = useState<UserInterface | null>(null)
 
   return (
     <CurrentUserContext.Provider
