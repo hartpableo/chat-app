@@ -1,4 +1,4 @@
-import type {ChatInterface, UserInterface} from "./interface.ts";
+import type {UserInterface} from "./interface.ts";
 
 export const dummyUsers: UserInterface[] = [
   {
@@ -15,29 +15,29 @@ export const dummyUsers: UserInterface[] = [
   }
 ]
 
-export const dummyChats: ChatInterface[] = [
-  {
-    id: 123,
-    user: dummyUsers[0],
-    body: "hello there!",
-    timestamp: Date.now()
-  },
-  {
-    id: 333,
-    user: dummyUsers[1],
-    body: "Oh Hi!!",
-    timestamp: Date.now()
-  },
-  {
-    id: 144,
-    user: dummyUsers[2],
-    body: "hello....",
-    timestamp: Date.now()
-  },
-  {
-    id: 333,
-    user: dummyUsers[1],
-    body: "nice meeting you guys!",
-    timestamp: Date.now()
-  }
-]
+// export const dummyChats: ChatInterface[] = [
+//   {
+//     id: 123,
+//     user: dummyUsers[0],
+//     body: "hello there!",
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: 333,
+//     user: dummyUsers[1],
+//     body: "Oh Hi!!",
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: 144,
+//     user: dummyUsers[2],
+//     body: "hello....",
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: 333,
+//     user: dummyUsers[1],
+//     body: "nice meeting you guys!",
+//     timestamp: Date.now()
+//   }
+// ]

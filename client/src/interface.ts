@@ -1,10 +1,11 @@
 import * as React from "react";
 
 export interface ChatInterface {
-  id: number
+  // id: number
   user: UserInterface
   body: string
-  timestamp: number
+  timestamp: number,
+  room: ChatRoomInterface["handle"]
 }
 
 export interface UserInterface {

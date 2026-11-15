@@ -1,12 +1,52 @@
+import {useState} from "react";
+import {useRoom, useUser} from "./context.tsx";
+import * as React from "react";
+import {useSocket} from "./SocketProvider.tsx";
+import type {ChatInterface} from "./interface.ts";
+
 function MessageForm() {
+  const {currentRoom} = useRoom()
+  const {currentUser} = useUser()
+
+  if (!currentRoom) {
+    throw new Error("Room not found")
+  } else if (!currentUser) {
+    throw new Error("User not found")
+  }
+
+  const {socket} = useSocket();
+  const [message, setMessage] = useState("");
+
+  const sendMessage = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!socket || !message.trim()) return
+
+    const payload: ChatInterface = {
+      user: currentUser,
+      body: message,
+      timestamp: Date.now(),
+      room: currentRoom.handle
+    }
+
+    socket.emit("send_message", payload);
+
+
+  }
+
   return (
-    <form>
+    <form autoComplete="off" method="post" onSubmit={sendMessage}>
       <div className="form-group">
         <label htmlFor="message" className="mb-1">Your message:</label>
-        <textarea className="form-control" id="message" rows={5}></textarea>
+        <textarea
+          className="form-control"
+          id="message"
+          rows={5}
+          onChange={event => setMessage(event.target.value)}
+        />
       </div>
       <button type="submit" className="btn btn-primary mt-3">
-        <svg aria-hidden={true} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send-fill"
+        <svg aria-hidden={true} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+             className="bi bi-send-fill"
              viewBox="0 0 16 16">
           <path
             d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>

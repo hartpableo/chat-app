@@ -1,19 +1,32 @@
 import {useEffect, useState} from "react";
 import type {ChatInterface} from "./interface.ts";
-import {dummyChats} from "./data.ts";
 import {useUser} from "./context.tsx";
 import MessageForm from "./MessageForm.tsx";
+import {useSocket} from "./SocketProvider.tsx";
 
 function Conversation() {
   const [chats, setChats] = useState<ChatInterface[]>([])
   const {currentUser} = useUser()
+  const {socket} = useSocket();
 
   /**
    * Get chats
    */
   useEffect(() => {
-    setChats(dummyChats)
-  }, [])
+    if (!socket) return
+
+    const handleMessage = (data: ChatInterface) => {
+      setChats((prevChats: ChatInterface[]) => {
+        return [...prevChats, data];
+      })
+    }
+
+    socket.on("receive_message", handleMessage);
+
+    return () => {
+      socket.off("receive_message", handleMessage);
+    };
+  }, [socket])
 
   return (
     <>
@@ -22,7 +35,7 @@ function Conversation() {
         {chats.length ? (
           <ol className="m-0 list-unstyled">
             {chats.map((chat: ChatInterface, index: number) => {
-              const {id, user, body, timestamp} = chat
+              const {user, body, timestamp} = chat
               const formattedChatDate = new Intl.DateTimeFormat('en-US', {
                 year: 'numeric',
                 month: 'long',
@@ -36,7 +49,6 @@ function Conversation() {
               return (
                 <li key={index} className="mb-2">
                   <div
-                    id={String(id)}
                     className={[
                       "p-3 border border-2 rounded text-white",
                       isMyChatMessage ? "bg-primary ms-auto" : "bg-secondary"
