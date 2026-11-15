@@ -1,8 +1,9 @@
 import {useState} from "react";
-import {useRoom, useUser} from "./context.tsx";
+import {useRoom} from "./context.tsx";
 import * as React from "react";
-import {useSocket} from "./SocketProvider.tsx";
 import type {ChatInterface} from "./interface.ts";
+import {useSocket} from "./Provider/SocketProvider.tsx";
+import {useUser} from "./Provider/CurrentUserProvider.tsx";
 
 function MessageForm() {
   const {currentRoom} = useRoom()
@@ -30,7 +31,7 @@ function MessageForm() {
 
     socket.emit("send_message", payload);
 
-
+    setMessage("")
   }
 
   return (
@@ -41,6 +42,7 @@ function MessageForm() {
           className="form-control"
           id="message"
           rows={5}
+          value={message}
           onChange={event => setMessage(event.target.value)}
         />
       </div>

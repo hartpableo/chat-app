@@ -1,12 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import {SocketProvider} from "./SocketProvider.tsx";
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
+import {SocketProvider} from "./Provider/SocketProvider.tsx";
+import {CurrentUserContextProvider} from "./Provider/CurrentUserProvider.tsx";
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <SocketProvider>
-      <App />
+      <CurrentUserContextProvider>
+        <App/>
+      </CurrentUserContextProvider>
     </SocketProvider>
   </StrictMode>,
 )

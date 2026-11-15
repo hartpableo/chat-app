@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import type {ChatInterface} from "./interface.ts";
-import {useUser} from "./context.tsx";
 import MessageForm from "./MessageForm.tsx";
-import {useSocket} from "./SocketProvider.tsx";
+import {useSocket} from "./Provider/SocketProvider.tsx";
+import {useUser} from "./Provider/CurrentUserProvider.tsx";
 
 function Conversation() {
   const [chats, setChats] = useState<ChatInterface[]>([])
