@@ -1,7 +1,7 @@
-import {useRoom} from "./context.tsx";
+import {useCurrentRoom} from "./Provider/CurrentRoomProvider.tsx";
 
 function Sidebar() {
-  const {currentRoom} = useRoom()
+  const {currentRoom} = useCurrentRoom()
 
   if (!currentRoom) {
     throw new Error("Room not found")

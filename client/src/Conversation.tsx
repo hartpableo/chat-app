@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import type {ChatInterface} from "./interface.ts";
 import MessageForm from "./MessageForm.tsx";
 import {useSocket} from "./Provider/SocketProvider.tsx";
-import {useUser} from "./Provider/CurrentUserProvider.tsx";
+import {useCurrentUser} from "./Provider/CurrentUserProvider.tsx";
 
 function Conversation() {
   const [chats, setChats] = useState<ChatInterface[]>([])
-  const {currentUser} = useUser()
+  const {currentUser} = useCurrentUser()
   const {socket} = useSocket();
 
   /**

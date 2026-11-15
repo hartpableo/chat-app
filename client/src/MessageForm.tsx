@@ -1,13 +1,13 @@
 import {useState} from "react";
-import {useRoom} from "./context.tsx";
 import * as React from "react";
 import type {ChatInterface} from "./interface.ts";
 import {useSocket} from "./Provider/SocketProvider.tsx";
-import {useUser} from "./Provider/CurrentUserProvider.tsx";
+import {useCurrentUser} from "./Provider/CurrentUserProvider.tsx";
+import {useCurrentRoom} from "./Provider/CurrentRoomProvider.tsx";
 
 function MessageForm() {
-  const {currentRoom} = useRoom()
-  const {currentUser} = useUser()
+  const {currentRoom} = useCurrentRoom()
+  const {currentUser} = useCurrentUser()
 
   if (!currentRoom) {
     throw new Error("Room not found")
