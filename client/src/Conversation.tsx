@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import type {ChatInterface} from "./interface.ts";
 import {dummyChats} from "./data.ts";
 import {useUser} from "./context.tsx";
+import MessageForm from "./MessageForm.tsx";
 
 function Conversation() {
   const [chats, setChats] = useState<ChatInterface[]>([])
@@ -55,6 +56,8 @@ function Conversation() {
             <p>No messages yet</p>
           </>
         )}
+        <hr/>
+        <MessageForm/>
       </section>
     </>
   )
