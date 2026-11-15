@@ -2,15 +2,24 @@ import {useState} from "react";
 import * as React from "react";
 import {users} from "./data.ts";
 import {useCurrentUser} from "./Provider/CurrentUserProvider.tsx";
+import {useSocket} from "./Provider/SocketProvider.tsx";
+import {useCurrentRoom} from "./Provider/CurrentRoomProvider.tsx";
 
 function JoinRoomForm() {
   const [userHandle, setUserHandle] = useState("")
   const {setCurrentUser} = useCurrentUser()
+  const {socket} = useSocket();
+  const {currentRoom} = useCurrentRoom()
+  const roomHandle = currentRoom?.handle
+
+  if (!roomHandle) {
+    throw new Error("Room not found")
+  }
 
   const joinRoom = (event: React.SubmitEvent) => {
     event.preventDefault()
 
-    if (!userHandle.length) return
+    if (!socket || !userHandle.length) return
 
     const user = users.find(d => d.handle === userHandle)
     if (!user) {
@@ -18,6 +27,8 @@ function JoinRoomForm() {
       setUserHandle("")
       return
     }
+
+    socket.emit("join_room", roomHandle);
 
     setCurrentUser(user)
     setUserHandle("")
