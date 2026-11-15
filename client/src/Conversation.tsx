@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import type {ChatInterface} from "./interface.ts";
 import {dummyChats} from "./data.ts";
-import {useUser} from "./App.tsx";
+import {useUser} from "./context.tsx";
 
 function Conversation() {
   const [chats, setChats] = useState<ChatInterface[]>([])
@@ -16,7 +16,7 @@ function Conversation() {
 
   return (
     <>
-      <section className="p-5 border border-5">
+      <section className="p-4 border border-5">
         <h3 className="pb-3 mb-3 border-bottom border-bottom-2">Your group chat conversation</h3>
         {chats.length ? (
           <ol className="m-0 list-unstyled">

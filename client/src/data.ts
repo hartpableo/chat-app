@@ -1,6 +1,6 @@
-import type {ChatInterface, User} from "./interface.ts";
+import type {ChatInterface, UserInterface} from "./interface.ts";
 
-export const dummyUsers: User[] = [
+export const dummyUsers: UserInterface[] = [
   {
     id: 1,
     handle: "@k3nj1"
